@@ -19,7 +19,7 @@ func ConnectDB() *mongo.Client {
 	}
 
 	// create context with timeout of 10 seconds
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	err = client.Connect(ctx)
 
 	// if error connecting, log error and exit

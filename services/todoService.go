@@ -12,6 +12,7 @@ type DefaultTodoService struct {
 
 type TodoService interface {
 	TodoInsert(todo models.Todo) (*dto.TodoDTO, error)
+	TodoGetAll() ([]models.Todo, error)
 }
 
 func (t DefaultTodoService) TodoInsert(todo models.Todo) (*dto.TodoDTO, error) {
@@ -32,6 +33,16 @@ func (t DefaultTodoService) TodoInsert(todo models.Todo) (*dto.TodoDTO, error) {
 	return &res, nil
 }
 
-func NewTodoService(repo repository.TodoRepository) DefaultTodoService {
-	return DefaultTodoService{Repo: repo}
+func (t DefaultTodoService) TodoGetAll() ([]models.Todo, error) {
+	todos, err := t.Repo.GetAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return todos, nil
+}
+
+func NewTodoService(Repo repository.TodoRepository) DefaultTodoService {
+	return DefaultTodoService{Repo: Repo}
 }
